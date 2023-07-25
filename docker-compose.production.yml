@@ -1,3 +1,5 @@
+# docker-compose.production.yml
+
 version: '3'
 
 volumes:
@@ -13,19 +15,19 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
   backend:
-    build: ./backend/
+    image: markeeee3/kittygram_backend
     env_file: .env
     volumes:
       - static:/static/
       - media:/media/
   frontend:
     env_file: .env
-    build: ./frontend/
+    image: markeeee3/kittygram_frontend
     command: cp -r /app/build/. /static/
     volumes:
       - static:/static
   gateway:
-    build: ./nginx/
+    image: markeeee3/kittygram_gateway
     env_file: .env
     ports:
       - 9000:80
